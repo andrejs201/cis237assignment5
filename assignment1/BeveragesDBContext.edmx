@@ -5,15 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="BeverageATomsonsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'BeverageATomsons.dbo.Beverages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Beverages">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="pack" />
-            <PropertyRef Name="price" />
-            <PropertyRef Name="active" />
           </Key>
           <Property Name="id" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="name" Type="nchar" MaxLength="100" Nullable="false" />
@@ -22,15 +16,7 @@ warning 6002: The table/view 'BeverageATomsons.dbo.Beverages' does not have a pr
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BeverageATomsonsModelStoreContainer">
-          <EntitySet Name="Beverages" EntityType="Self.Beverages" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Beverages].[id] AS [id], 
-    [Beverages].[name] AS [name], 
-    [Beverages].[pack] AS [pack], 
-    [Beverages].[price] AS [price], 
-    [Beverages].[active] AS [active]
-    FROM [dbo].[Beverages] AS [Beverages]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Beverages" EntityType="Self.Beverages" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -40,10 +26,6 @@ warning 6002: The table/view 'BeverageATomsons.dbo.Beverages' does not have a pr
         <EntityType Name="Beverage">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="pack" />
-            <PropertyRef Name="price" />
-            <PropertyRef Name="active" />
           </Key>
           <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
@@ -51,7 +33,7 @@ warning 6002: The table/view 'BeverageATomsons.dbo.Beverages' does not have a pr
           <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="BeverageATomsonsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BeverageATomsonsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Beverages" EntityType="Self.Beverage" />
         </EntityContainer>
       </Schema>
@@ -59,7 +41,7 @@ warning 6002: The table/view 'BeverageATomsons.dbo.Beverages' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BeverageATomsonsModelStoreContainer" CdmEntityContainer="BeverageATomsonsEntities">
+        <EntityContainerMapping StorageEntityContainer="BeverageATomsonsModelStoreContainer" CdmEntityContainer="BeverageATomsonsEntities1">
           <EntitySetMapping Name="Beverages">
             <EntityTypeMapping TypeName="BeverageATomsonsModel.Beverage">
               <MappingFragment StoreEntitySet="Beverages">

@@ -1,6 +1,6 @@
-﻿//Author: David Barnes
+﻿//Author: Andrejs Tomsons
 //CIS 237
-//Assignment 1
+//Assignment 5
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,14 +67,37 @@ namespace assignment1
             Console.WriteLine("What is the new items Id?");
             Console.Write("> ");
             string id = Console.ReadLine();
-            Console.WriteLine("What is the new items Description?");
+            Console.WriteLine("What is the new items Name?");
             Console.Write("> ");
-            string description = Console.ReadLine();
+            string name = Console.ReadLine();
             Console.WriteLine("What is the new items Pack?");
             Console.Write("> ");
             string pack = Console.ReadLine();
+            Console.WriteLine("What is the new items Price?");
+            Console.Write("> ");
+            string price = Console.ReadLine();
 
-            return new string[] { id, description, pack };
+            return new string[] { id, name, pack, price };
+        }
+
+        //Get the updated item information from the user
+        public string[] GetUpdatedItemInformation()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What is the Updated items Id?");
+            Console.Write("> ");
+            string id = Console.ReadLine();
+            Console.WriteLine("What is the Updated items Name?");
+            Console.Write("> ");
+            string name = Console.ReadLine();
+            Console.WriteLine("What is the Updated items Pack?");
+            Console.Write("> ");
+            string pack = Console.ReadLine();
+            Console.WriteLine("What is the Updated items Price?");
+            Console.Write("> ");
+            string price = Console.ReadLine();
+
+            return new string[] { id, name, pack, price };
         }
 
         //Display Import Success
@@ -92,12 +115,12 @@ namespace assignment1
         }
 
         //Display All Items
-        public void DisplayAllItems(string[] allItemsOutput)
+        public void DisplayAllItems(string[] allItemsOutput, int length)
         {
             Console.WriteLine();
-            foreach (string itemOutput in allItemsOutput)
+            for (int i = 0; i < length; i++ )
             {
-                Console.WriteLine(itemOutput);
+                Console.WriteLine(allItemsOutput[i]);
             }
         }
 
@@ -137,6 +160,45 @@ namespace assignment1
             Console.WriteLine("An Item With That Id Already Exists");
         }
 
+        //Get the delete information
+        public string GetDeleteInformation()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What is the Id of the item you wish to delete?");
+            Console.Write("> ");
+            string id = Console.ReadLine();
+
+            return id;
+        }
+
+        //Display delete success
+        public void DisplayDeleteSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The item was successfully deleted");
+        }
+
+        //display delere error
+        public void DisplayDeleteError()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The item was not deleted because it does not exist");
+        }
+
+        //display update success
+        public void DisplayUpdateSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The item has been updated");
+        }
+
+        //Displat update error
+        public void DisplayUpdateError()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The item has not been updated because it does not exist");
+        }
+
 
         //---------------------------------------------------
         //Private Methods
@@ -148,11 +210,12 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Load Wine List From CSV");
-            Console.WriteLine("2. Print The Entire List Of Items");
-            Console.WriteLine("3. Search For An Item");
-            Console.WriteLine("4. Add New Item To The List");
-            Console.WriteLine("5. Exit Program");
+            Console.WriteLine("1. Print The Entire List Of Items");
+            Console.WriteLine("2. Search For An Item");
+            Console.WriteLine("3. Add New Item To The List");
+            Console.WriteLine("4. Delete an item");
+            Console.WriteLine("5. Update an item");
+            Console.WriteLine("6. Exit Program");
         }
 
         //Display the Prompt

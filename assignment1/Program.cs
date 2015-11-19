@@ -1,14 +1,6 @@
-﻿//Author: David Barnes
+﻿//Author: Andrejs Tomsons
 //CIS 237
-//Assignment 1
-/*
- * The Menu Choices Displayed By The UI
- * 1. Load Wine List From CSV
- * 2. Print The Entire List Of Items
- * 3. Search For An Item
- * 4. Add New Item To The List
- * 5. Exit Program
- */
+//Assignment 5
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +16,11 @@ namespace assignment1
             //Set a constant for the size of the collection
             const int wineItemCollectionSize = 4000;
 
-            //Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/winelist.csv";
-
             //Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
             //Create an instance of the WineItemCollection class
-            IWineCollection wineItemCollection = new WineItemCollection(wineItemCollectionSize);
-
-            //Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
+            WineItemCollection wineItemCollection = new WineItemCollection(wineItemCollectionSize);
 
             //Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -43,32 +29,17 @@ namespace assignment1
             //This is the 'primer' run of displaying and getting.
             int choice = userInterface.DisplayMenuAndGetResponse();
 
-            while (choice != 5)
+            while (choice != 6)
             {
                 switch (choice)
                 {
                     case 1:
-                        //Load the CSV File
-                        bool success = csvProcessor.ImportCSV(wineItemCollection, pathToCSVFile);
-                        if (success)
-                        {
-                            //Display Success Message
-                            userInterface.DisplayImportSuccess();
-                        }
-                        else
-                        {
-                            //Display Fail Message
-                            userInterface.DisplayImportError();
-                        }
-                        break;
-
-                    case 2:
                         //Print Entire List Of Items
-                        string[] allItems = wineItemCollection.GetPrintStringsForAllItems();
+                        string[] allItems = wineItemCollection.GetPrintStringsForAllItems(wineItemCollectionSize);
                         if (allItems.Length > 0)
                         {
                             //Display all of the items
-                            userInterface.DisplayAllItems(allItems);
+                            userInterface.DisplayAllItems(allItems, wineItemCollection.WineItemsLength);
                         }
                         else
                         {
@@ -77,31 +48,73 @@ namespace assignment1
                         }
                         break;
 
-                    case 3:
+                    case 2:
                         //Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
                         string itemInformation = wineItemCollection.FindById(searchQuery);
                         if (itemInformation != null)
                         {
+                            //Display the item found
                             userInterface.DisplayItemFound(itemInformation);
                         }
                         else
                         {
+                            //Display error message for item found
                             userInterface.DisplayItemFoundError();
                         }
                         break;
 
-                    case 4:
+                    case 3:
                         //Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
-                        if (wineItemCollection.FindById(newItemInformation[0]) == null)
+                        itemInformation = wineItemCollection.FindById(newItemInformation[0]);
+                        if (itemInformation == null)
                         {
-                            wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2]);
+                            //Add the item
+                            wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2], Convert.ToDecimal(newItemInformation[3]));
+                            //Display item adding success
                             userInterface.DisplayAddWineItemSuccess();
                         }
                         else
                         {
+                            //Display item adding failure
                             userInterface.DisplayItemAlreadyExistsError();
+                        }
+                        break;
+
+                    case 4:
+                        //Delete an item
+                        string deleteQuery = userInterface.GetDeleteInformation();
+                        itemInformation = wineItemCollection.FindById(deleteQuery);
+                        if (itemInformation != null)
+                        {
+                            //Delete the item
+                            wineItemCollection.DeleteItem(deleteQuery);
+                            //Display delete success
+                            userInterface.DisplayDeleteSuccess();
+                        }
+                        else
+                        {
+                            //Display delete error
+                            userInterface.DisplayDeleteError();
+                        }
+                        break;
+
+                    case 5:
+                        //Update an item
+                        string[] updateItemInformation = userInterface.GetUpdatedItemInformation();
+                        itemInformation = wineItemCollection.FindById(updateItemInformation[0]);
+                        if (itemInformation != null)
+                        {
+                            //Update the item
+                            wineItemCollection.UpdateItem(updateItemInformation[0], updateItemInformation[1], updateItemInformation[2], Convert.ToDecimal(updateItemInformation[3]));
+                            //Display update success
+                            userInterface.DisplayUpdateSuccess();
+                        }
+                        else
+                        {
+                            //Display update error
+                            userInterface.DisplayUpdateError();
                         }
                         break;
                 }

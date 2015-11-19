@@ -13,10 +13,10 @@ namespace assignment1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BeverageATomsonsEntities : DbContext
+    public partial class BeverageATomsonsEntities1 : DbContext
     {
-        public BeverageATomsonsEntities()
-            : base("name=BeverageATomsonsEntities")
+        public BeverageATomsonsEntities1()
+            : base("name=BeverageATomsonsEntities1")
         {
         }
     

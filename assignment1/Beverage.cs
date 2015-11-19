@@ -19,5 +19,11 @@ namespace assignment1
         public string pack { get; set; }
         public decimal price { get; set; }
         public bool active { get; set; }
+
+        //Get the info from the beverage into one string
+        public override string ToString()
+        {
+            return "Id: " + id + Environment.NewLine + "Name: " + name.Trim() + Environment.NewLine + "Pack: " + pack + Environment.NewLine + "Price: " + price + Environment.NewLine;
+        }
     }
 }
